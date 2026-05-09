@@ -81,6 +81,26 @@
   .main-nav a:hover { color:var(--brand-blue); }
   .main-nav a:hover::after { width:100%; }
 
+  /* Mobile hamburger */
+  .mobile-toggle { display:none; background:none; border:none; cursor:pointer; padding:4px; z-index:120; }
+  .mobile-toggle span { display:block; width:26px; height:2.5px; background:var(--brand-dark); margin:5px 0; border-radius:2px; transition:var(--transition); }
+  .mobile-toggle.active span:nth-child(1) { transform:rotate(45deg) translate(5px,5px); }
+  .mobile-toggle.active span:nth-child(2) { opacity:0; }
+  .mobile-toggle.active span:nth-child(3) { transform:rotate(-45deg) translate(5.5px,-5.5px); }
+
+  @media (max-width:900px) {
+    .mobile-toggle { display:block; }
+    .main-nav { position:fixed; top:0; right:-100%; width:80%; max-width:320px; height:100vh; background:var(--brand-dark); z-index:110; padding:80px 30px 40px; transition:right 0.4s cubic-bezier(0.22,1,0.36,1); box-shadow:-8px 0 40px rgba(0,0,0,0.15); }
+    .main-nav.open { right:0; }
+    .main-nav ul { flex-direction:column; gap:0; }
+    .main-nav li { border-bottom:1px solid rgba(255,255,255,0.06); }
+    .main-nav a { color:#fff; font-size:14px; padding:16px 0; display:block; width:100%; white-space:nowrap; }
+    .main-nav a::after { display:none; }
+    .main-nav a:hover { color:rgb(46,163,242); }
+    .nav-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:105; opacity:0; pointer-events:none; transition:opacity 0.3s ease; backdrop-filter:blur(4px); }
+    .nav-overlay.active { opacity:1; pointer-events:auto; }
+  }
+
   /* ========== HERO ========== */
   .hero { position:relative; min-height:520px; display:flex; align-items:center; overflow:hidden; }
   .hero-bg { position:absolute; inset:0; background:url('https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=1600&auto=format&fit=crop&q=80') center/cover no-repeat; will-change:transform; }
@@ -239,7 +259,13 @@
       </div>
       <span class="logo-text">Jarden <span>VETS</span></span>
     </a>
-    <nav class="main-nav">
+    <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <div class="nav-overlay" id="navOverlay"></div>
+    <nav class="main-nav" id="mainNav">
       <ul>
         <li><a href="#">Home</a></li>
         <li><a href="#">About Us</a></li>
@@ -496,6 +522,28 @@
 </footer>
 
 <script>
+  // Mobile nav toggle
+  const mobileToggle = document.getElementById('mobileToggle');
+  const mainNav = document.getElementById('mainNav');
+  const navOverlay = document.getElementById('navOverlay');
+
+  function toggleNav() {
+    mobileToggle.classList.toggle('active');
+    mainNav.classList.toggle('open');
+    navOverlay.classList.toggle('active');
+    document.body.style.overflow = mainNav.classList.contains('open') ? 'hidden' : '';
+  }
+
+  mobileToggle.addEventListener('click', toggleNav);
+  navOverlay.addEventListener('click', toggleNav);
+
+  // Close nav on link click (mobile)
+  mainNav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      if (mainNav.classList.contains('open')) toggleNav();
+    });
+  });
+
   // Scroll reveal observer
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
