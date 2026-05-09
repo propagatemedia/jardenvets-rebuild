@@ -11,262 +11,204 @@
     --brand-blue: rgb(30,115,190);
     --brand-teal: rgb(44,132,155);
     --brand-dark: rgb(40,49,51);
-    --brand-navy: rgb(40,49,51);
     --text-dark: rgb(34,34,34);
     --text-body: rgb(51,51,51);
     --text-muted: rgb(102,102,102);
     --bg-white: #fff;
-    --bg-light: rgb(249,249,249);
+    --bg-light: rgb(248,249,250);
     --border-light: #eee;
-    --radius: 4px;
-    --transition: 0.25s ease;
+    --radius: 10px;
+    --transition: 0.35s cubic-bezier(0.4,0,0.2,1);
   }
 
   * { margin:0; padding:0; box-sizing:border-box; }
-  body { font-family:'Open Sans',sans-serif; color:var(--text-body); line-height:1.6; background:var(--bg-white); }
+  html { scroll-behavior: smooth; }
+  body { font-family:'Open Sans',sans-serif; color:var(--text-body); line-height:1.65; background:var(--bg-white); overflow-x:hidden; }
   h1,h2,h3,h4 { font-family:'Montserrat',sans-serif; font-weight:600; color:var(--brand-dark); }
   a { color:var(--brand-blue); text-decoration:none; transition:var(--transition); }
   a:hover { opacity:0.85; }
   img { max-width:100%; display:block; }
 
+  /* ========== ANIMATIONS ========== */
+  @keyframes float {
+    0%,100% { transform:translateY(0); }
+    50% { transform:translateY(-8px); }
+  }
+  @keyframes fadeInUp {
+    from { opacity:0; transform:translateY(30px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity:0; }
+    to { opacity:1; }
+  }
+  @keyframes blobMorph {
+    0%,100% { border-radius:60% 40% 30% 70% / 60% 30% 70% 40%; }
+    50% { border-radius:30% 60% 70% 40% / 50% 60% 30% 60%; }
+  }
+  .reveal { opacity:0; transform:translateY(40px); transition:all 0.8s cubic-bezier(0.22,1,0.36,1); }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+  .stagger-1 { transition-delay:0.1s; }
+  .stagger-2 { transition-delay:0.2s; }
+  .stagger-3 { transition-delay:0.3s; }
+
   /* ========== TOP BAR ========== */
-  .top-bar {
-    background:var(--brand-dark);
-    padding:8px 0;
-  }
-  .top-bar .container {
-    max-width:1200px; margin:0 auto; padding:0 20px;
-    display:flex; justify-content:flex-end; align-items:center; gap:24px;
-  }
-  .top-bar a {
-    color:#fff; font-family:'Montserrat',sans-serif; font-size:12px;
-    font-weight:600; letter-spacing:0.5px; text-transform:uppercase;
-  }
-  .top-bar a::after {
-    content:'>'; display:inline-block; margin-left:6px; font-size:10px;
-  }
-  .top-bar .socials {
-    list-style:none; display:flex; gap:12px; margin-left:16px;
-  }
-  .top-bar .socials a {
-    width:28px; height:28px; border-radius:50%;
-    background:rgba(255,255,255,0.15); display:flex;
-    align-items:center; justify-content:center; font-size:13px;
-  }
-  .top-bar .socials a::after { content:none; }
+  .top-bar { background:var(--brand-dark); padding:10px 0; position:relative; z-index:10; }
+  .top-bar .container { max-width:1200px; margin:0 auto; padding:0 20px; display:flex; justify-content:flex-end; align-items:center; gap:24px; }
+  .top-bar a { color:#fff; font-family:'Montserrat',sans-serif; font-size:12px; font-weight:600; letter-spacing:0.5px; text-transform:uppercase; }
+  .top-bar a:hover { color:rgb(46,163,242); }
+  .top-bar .socials { list-style:none; display:flex; gap:12px; margin-left:16px; }
+  .top-bar .socials a { width:32px; height:32px; border-radius:50%; background:rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:center; font-size:14px; transition:var(--transition); }
+  .top-bar .socials a:hover { background:var(--brand-blue); transform:translateY(-3px); }
 
   /* ========== HEADER ========== */
-  .site-header {
-    background:var(--bg-white);
-    border-bottom:1px solid var(--border-light);
-    padding:18px 0;
-    position:sticky; top:0; z-index:100;
-  }
-  .site-header .container {
-    max-width:1200px; margin:0 auto; padding:0 20px;
-    display:flex; align-items:center; justify-content:space-between;
-  }
-  .logo img { height:48px; }
-  .main-nav ul {
-    list-style:none; display:flex; gap:28px;
-  }
-  .main-nav a {
-    font-family:'Montserrat',sans-serif; font-size:13px;
-    font-weight:600; text-transform:uppercase; letter-spacing:0.6px;
-    color:var(--brand-dark);
-  }
+  .site-header { background:rgba(255,255,255,0.95); backdrop-filter:blur(12px) saturate(180%); border-bottom:1px solid rgba(0,0,0,0.04); padding:16px 0; position:sticky; top:0; z-index:100; transition:var(--transition); }
+  .site-header.scrolled { padding:10px 0; box-shadow:0 4px 24px rgba(0,0,0,0.06); }
+  .site-header .container { max-width:1200px; margin:0 auto; padding:0 20px; display:flex; align-items:center; justify-content:space-between; }
+  .logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
+  .logo-icon { width:44px; height:44px; border-radius:50%; background:var(--brand-blue); display:flex; align-items:center; justify-content:center; transition:var(--transition); }
+  .logo-icon:hover { transform:scale(1.08); }
+  .logo-icon svg { width:28px; height:28px; }
+  .logo-text { font-family:'Montserrat',sans-serif; font-size:20px; font-weight:600; color:var(--brand-dark); letter-spacing:-0.5px; }
+  .logo-text span { color:var(--brand-teal); font-weight:700; }
+  .main-nav ul { list-style:none; display:flex; gap:28px; }
+  .main-nav a { font-family:'Montserrat',sans-serif; font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:0.6px; color:var(--brand-dark); position:relative; }
+  .main-nav a::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:2px; background:var(--brand-blue); transition:var(--transition); }
   .main-nav a:hover { color:var(--brand-blue); }
+  .main-nav a:hover::after { width:100%; }
 
   /* ========== HERO ========== */
-  .hero {
-    position:relative; min-height:420px;
-    display:flex; align-items:center;
-    background:url('https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=1600&auto=format&fit=crop&q=80') center/cover no-repeat;
-  }
-  .hero::before {
-    content:''; position:absolute; inset:0;
-    background:rgba(0,0,0,0.35);
-  }
-  .hero .container {
-    position:relative; z-index:2;
-    max-width:1200px; margin:0 auto; padding:60px 20px;
-  }
-  .hero h1 {
-    color:#fff; font-size:48px; font-weight:700; line-height:1.15;
-    margin-bottom:24px; max-width:600px;
-  }
-  .hero-ctas { display:flex; gap:16px; flex-wrap:wrap; }
-  .btn {
-    display:inline-flex; align-items:center; justify-content:center;
-    padding:14px 28px; border-radius:var(--radius);
-    font-family:'Montserrat',sans-serif; font-size:13px;
-    font-weight:700; text-transform:uppercase; letter-spacing:0.6px;
-    cursor:pointer; border:none; transition:var(--transition);
-  }
-  .btn-primary {
-    background:var(--brand-blue); color:#fff;
-  }
-  .btn-primary:hover {
-    background:rgb(44,132,155); opacity:1;
-  }
-  .btn-outline {
-    background:transparent; color:#fff; border:2px solid #fff;
-  }
-  .btn-outline:hover { background:#fff; color:var(--brand-dark); }
+  .hero { position:relative; min-height:520px; display:flex; align-items:center; overflow:hidden; }
+  .hero-bg { position:absolute; inset:0; background:url('https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=1600&auto=format&fit=crop&q=80') center/cover no-repeat; will-change:transform; }
+  .hero-overlay { position:absolute; inset:0; background:linear-gradient(135deg,rgba(30,115,190,0.45) 0%,rgba(40,49,51,0.55) 100%); }
+  .hero-shape-bottom { position:absolute; bottom:-1px; left:0; width:100%; line-height:0; z-index:3; }
+  .hero-shape-bottom svg { display:block; width:100%; height:auto; }
+  .hero .container { position:relative; z-index:4; max-width:1200px; margin:0 auto; padding:100px 20px 140px; }
+  .hero h1 { color:#fff; font-size:56px; font-weight:800; line-height:1.08; margin-bottom:28px; max-width:600px; text-shadow:0 2px 16px rgba(0,0,0,0.25); animation:fadeInUp 1s ease both; }
+  .hero-lead { color:rgba(255,255,255,0.9); font-size:18px; max-width:520px; margin-bottom:32px; animation:fadeInUp 1s ease 0.15s both; }
+  .hero-ctas { display:flex; gap:16px; flex-wrap:wrap; animation:fadeInUp 1s ease 0.3s both; }
+  .btn { display:inline-flex; align-items:center; justify-content:center; padding:14px 30px; border-radius:50px; font-family:'Montserrat',sans-serif; font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; cursor:pointer; border:none; transition:var(--transition); position:relative; overflow:hidden; }
+  .btn::before { content:''; position:absolute; inset:0; background:rgba(255,255,255,0.15); transform:translateX(-100%); transition:var(--transition); }
+  .btn:hover::before { transform:translateX(0); }
+  .btn-primary { background:#fff; color:var(--brand-blue); box-shadow:0 8px 24px rgba(30,115,190,0.25); }
+  .btn-primary:hover { background:#fff; transform:translateY(-3px); box-shadow:0 14px 36px rgba(30,115,190,0.35); }
+  .btn-outline { background:transparent; color:#fff; border:2px solid rgba(255,255,255,0.5); box-shadow:0 4px 16px rgba(0,0,0,0.1); }
+  .btn-outline:hover { background:#fff; color:var(--brand-dark); border-color:#fff; transform:translateY(-3px); }
+  .btn svg { width:16px; height:16px; margin-left:10px; transition:var(--transition); }
+  .btn:hover svg { transform:translateX(4px); }
+
+  /* Decorative floating blobs */
+  .blob { position:absolute; border-radius:50%; filter:blur(70px); opacity:0.15; pointer-events:none; z-index:2; }
+  .blob-1 { width:400px; height:400px; background:var(--brand-teal); top:10%; right:-100px; animation:blobMorph 8s ease-in-out infinite; }
+  .blob-2 { width:300px; height:300px; background:var(--brand-blue); bottom:-50px; left:-80px; animation:blobMorph 10s ease-in-out infinite reverse; }
 
   /* ========== INTRO SECTION ========== */
-  .intro {
-    background:var(--bg-white); padding:80px 0;
-  }
-  .intro .container {
-    max-width:1200px; margin:0 auto; padding:0 20px;
-    display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center;
-  }
-  .intro h2 { font-size:30px; line-height:1.3; margin-bottom:20px; }
-  .intro p { font-size:16px; color:var(--text-body); margin-bottom:16px; }
+  .wavy-divider { position:relative; line-height:0; }
+  .wavy-divider svg { display:block; width:100%; height:60px; }
+  .intro { background:var(--bg-white); padding:0 0 80px; position:relative; }
+  .intro .container { max-width:1200px; margin:0 auto; padding:0 20px; display:grid; grid-template-columns:1fr 1fr; gap:70px; align-items:center; }
+  .intro h2 { font-size:32px; line-height:1.2; margin-bottom:22px; letter-spacing:-0.3px; }
+  .intro p { font-size:16.5px; color:var(--text-body); margin-bottom:18px; }
   .intro strong { color:var(--brand-dark); font-weight:700; }
-  .intro a { color:var(--brand-blue); font-weight:600; }
-  .intro-image img {
-    border-radius:var(--radius);
-    box-shadow:0 12px 40px rgba(0,0,0,0.08);
-  }
+  .intro a { color:var(--brand-blue); font-weight:700; border-bottom:2px solid transparent; transition:var(--transition); }
+  .intro a:hover { border-bottom-color:var(--brand-blue); }
+
+  /* Shaped image with organic blob */
+  .intro-image { position:relative; }
+  .intro-image::before { content:''; position:absolute; top:-20px; right:-20px; width:100%; height:100%; background:var(--brand-blue); border-radius:60% 40% 30% 70% / 60% 30% 70% 40%; opacity:0.1; z-index:0; animation:blobMorph 10s ease-in-out infinite; }
+  .intro-image-inner { position:relative; z-index:1; border-radius:40% 60% 70% 30% / 40% 50% 40% 60%; overflow:hidden; box-shadow:0 24px 60px rgba(30,115,190,0.15); transition:var(--transition); }
+  .intro-image-inner:hover { border-radius:30% 60% 50% 40% / 50% 40% 60% 50%; }
+  .intro-image img { width:100%; height:400px; object-fit:cover; transition:var(--transition); }
+  .intro-image-inner:hover img { transform:scale(1.05); }
+  .intro-image-accent { position:absolute; bottom:-30px; left:-20px; width:80px; height:80px; border-radius:50%; background:var(--brand-teal); opacity:0.2; z-index:2; animation:float 4s ease-in-out infinite; }
 
   /* ========== SERVICES GRID ========== */
-  .services-section {
-    background:var(--bg-light); padding:80px 0;
-  }
-  .services-section .container {
-    max-width:1200px; margin:0 auto; padding:0 20px;
-  }
-  .section-header { text-align:center; margin-bottom:50px; }
-  .section-header h2 {
-    font-size:14px; text-transform:uppercase; letter-spacing:1.2px;
-    color:var(--text-muted); font-weight:600; margin-bottom:12px;
-  }
-  .section-header h3 {
-    font-size:28px; color:var(--brand-dark); max-width:600px; margin:0 auto;
-  }
-  .section-header p {
-    font-size:16px; color:var(--text-muted); max-width:700px; margin:18px auto 0;
-  }
+  .services-section { background:var(--bg-light); padding:80px 0; position:relative; }
+  .services-section .container { max-width:1200px; margin:0 auto; padding:0 20px; }
+  .section-header { text-align:center; margin-bottom:60px; }
+  .section-header h2 { font-size:13px; text-transform:uppercase; letter-spacing:2.5px; color:var(--brand-blue); font-weight:700; margin-bottom:14px; background:linear-gradient(135deg,var(--brand-blue),var(--brand-teal)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+  .section-header h3 { font-size:32px; color:var(--brand-dark); max-width:620px; margin:0 auto; letter-spacing:-0.5px; }
+  .section-header p { font-size:17px; color:var(--text-muted); max-width:680px; margin:18px auto 0; }
 
-  .services-grid {
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:24px;
-    margin-bottom:50px;
-  }
-  @media (max-width:900px) {
-    .services-grid { grid-template-columns:repeat(2,1fr); }
-    .intro .container { grid-template-columns:1fr; }
-  }
-  @media (max-width:600px) {
-    .services-grid { grid-template-columns:1fr; }
-    .hero h1 { font-size:32px; }
-  }
+  .services-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:26px; margin-bottom:60px; }
+  .service-card { background:var(--bg-white); border-radius:20px; padding:36px 32px; transition:var(--transition); position:relative; display:flex; flex-direction:column; gap:16px; border:1px solid rgba(0,0,0,0.03); overflow:hidden; }
+  .service-card::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,var(--brand-blue),var(--brand-teal)); transform:scaleX(0); transform-origin:left; transition:var(--transition); }
+  .service-card:hover { transform:translateY(-8px); box-shadow:0 24px 60px rgba(30,115,190,0.12); border-color:transparent; }
+  .service-card:hover::before { transform:scaleX(1); }
 
-  .service-card {
-    background:var(--bg-white); border-radius:var(--radius);
-    border:1px solid var(--border-light); padding:32px;
-    transition:var(--transition); position:relative;
-    display:flex; flex-direction:column; gap:16px;
-  }
-  .service-card:hover {
-    transform:translateY(-4px);
-    box-shadow:0 16px 48px rgba(0,0,0,0.08);
-  }
-  .service-icon {
-    width:56px; height:56px; border-radius:50%;
-    background:var(--brand-blue); display:flex;
-    align-items:center; justify-content:center;
-    color:#fff; font-size:22px; flex-shrink:0;
-  }
-  .service-card h4 {
-    font-size:17px; color:var(--brand-dark); font-weight:700;
-  }
-  .service-card p {
-    font-size:14px; color:var(--text-muted); line-height:1.6; flex:1;
-  }
-  .service-card a {
-    font-family:'Montserrat',sans-serif; font-size:12px;
-    font-weight:700; text-transform:uppercase; letter-spacing:0.6px;
-    color:var(--brand-blue); margin-top:auto;
-  }
-  .service-card a::after {
-    content:'>'; display:inline-block; margin-left:6px; transition:var(--transition);
-  }
-  .service-card a:hover::after { transform:translateX(3px); }
+  /* Icon with soft blob backdrop */
+  .service-icon-wrap { position:relative; width:64px; height:64px; display:flex; align-items:center; justify-content:center; }
+  .service-icon-blob { position:absolute; inset:0; border-radius:60% 40% 30% 70% / 60% 30% 70% 40%; background:rgba(30,115,190,0.08); transition:var(--transition); }
+  .service-card:hover .service-icon-blob { background:rgba(30,115,190,0.18); transform:scale(1.15); }
+  .service-icon { font-size:26px; position:relative; z-index:1; transition:var(--transition); }
+  .service-card:hover .service-icon { transform:scale(1.15); }
+
+  .service-card h4 { font-size:18px; color:var(--brand-dark); font-weight:700; }
+  .service-card p { font-size:15px; color:var(--text-muted); line-height:1.65; flex:1; }
+  .service-card a { font-family:'Montserrat',sans-serif; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; color:var(--brand-blue); display:inline-flex; align-items:center; gap:6px; margin-top:auto; }
+  .service-card a::after { content:'>'; transition:var(--transition); }
+  .service-card a:hover { gap:10px; }
 
   /* ========== FEATURED IMAGES ========== */
-  .featured-images {
-    display:grid; grid-template-columns:1fr 1fr; gap:24px;
-  }
-  .featured-images img { border-radius:var(--radius); }
+  .featured-images { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+  .featured-img-wrap { position:relative; border-radius:20px; overflow:hidden; box-shadow:0 16px 48px rgba(0,0,0,0.1); }
+  .featured-img-wrap::after { content:''; position:absolute; inset:0; background:linear-gradient(to top,rgba(30,115,190,0.3),transparent 40%); opacity:0; transition:var(--transition); }
+  .featured-img-wrap:hover::after { opacity:1; }
+  .featured-img-wrap img { width:100%; height:300px; object-fit:cover; transition:var(--transition); border-radius:20px; }
+  .featured-img-wrap:hover img { transform:scale(1.06); }
+  .featured-caption { position:absolute; bottom:20px; left:24px; color:#fff; font-family:'Montserrat',sans-serif; font-weight:700; font-size:18px; z-index:2; opacity:0; transform:translateY(12px); transition:var(--transition); }
+  .featured-img-wrap:hover .featured-caption { opacity:1; transform:translateY(0); }
 
   /* ========== CTA STRIP ========== */
-  .cta-strip {
-    background:var(--brand-dark); padding:60px 0;
-  }
-  .cta-strip .container {
-    max-width:1200px; margin:0 auto; padding:0 20px;
-    display:flex; justify-content:center; gap:16px;
-    flex-wrap:wrap;
-  }
+  .cta-strip { background:var(--brand-dark); padding:80px 0; text-align:center; position:relative; overflow:hidden; }
+  .cta-strip::before { content:''; position:absolute; top:0; left:-20%; width:60%; height:100%; background:url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E") repeat; opacity:0.3; }
+  .cta-strip .container { position:relative; z-index:2; max-width:1200px; margin:0 auto; padding:0 20px; display:flex; justify-content:center; gap:18px; flex-wrap:wrap; }
+  .cta-strip h2 { width:100%; color:#fff; font-size:32px; margin-bottom:28px; font-weight:700; }
+  .cta-strip .btn-primary { background:var(--brand-blue); color:#fff; box-shadow:0 8px 24px rgba(30,115,190,0.35); }
+  .cta-strip .btn-outline { border-color:rgba(255,255,255,0.5); }
 
   /* ========== FOOTER ========== */
-  .site-footer {
-    background:var(--brand-dark); color:#fff; padding:60px 0 30px;
-  }
-  .site-footer .container {
-    max-width:1200px; margin:0 auto; padding:0 20px;
-    display:grid; grid-template-columns:1.2fr 1fr 1fr 1fr; gap:40px;
-  }
-  @media (max-width:900px) {
+  .site-footer { background:var(--brand-dark); color:#fff; padding:0; position:relative; }
+  .wave-top { line-height:0; margin-bottom:-1px; }
+  .wave-top svg { display:block; width:100%; height:70px; }
+  .site-footer .container { max-width:1200px; margin:0 auto; padding:60px 20px 30px; display:grid; grid-template-columns:1.2fr 1fr 1fr 1fr; gap:40px; }
+  .footer-brand { position:relative; }
+  .footer-brand .logo-text { color:#fff; margin-bottom:16px; }
+  .footer-brand .logo-text span { color:rgb(46,163,242); }
+  .footer-socials { list-style:none; display:flex; gap:12px; margin-top:16px; }
+  .footer-socials a { width:44px; height:44px; border-radius:50%; background:rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:center; color:#fff; font-size:16px; transition:var(--transition); }
+  .footer-socials a:hover { background:var(--brand-blue); transform:translateY(-4px) scale(1.1); box-shadow:0 8px 20px rgba(30,115,190,0.3); }
+  .footer-col h4 { color:rgb(46,163,242); font-size:12px; text-transform:uppercase; letter-spacing:2px; margin-bottom:22px; font-weight:700; }
+  .footer-col ul { list-style:none; }
+  .footer-col li { margin-bottom:12px; }
+  .footer-col a { color:rgba(255,255,255,0.7); font-size:15px; position:relative; display:inline-block; }
+  .footer-col a::before { content:''; position:absolute; bottom:-2px; left:0; width:0; height:2px; background:var(--brand-blue); transition:var(--transition); }
+  .footer-col a:hover { color:#fff; }
+  .footer-col a:hover::before { width:100%; }
+  .footer-col p { color:rgba(255,255,255,0.7); font-size:15px; margin-bottom:10px; }
+  .footer-col p a { color:#fff; font-weight:700; }
+  .newsletter input { width:100%; padding:12px 16px; border-radius:10px; border:1px solid rgba(255,255,255,0.12); background:rgba(255,255,255,0.05); color:#fff; font-size:14px; margin-bottom:12px; font-family:'Open Sans',sans-serif; transition:var(--transition); }
+  .newsletter input:focus { outline:none; border-color:var(--brand-blue); background:rgba(255,255,255,0.08); }
+  .newsletter input::placeholder { color:rgba(255,255,255,0.4); }
+  .newsletter .btn { width:100%; background:var(--brand-blue); color:#fff; font-size:12px; border-radius:10px; }
+  .newsletter .btn:hover { background:rgb(46,163,242); transform:translateY(-2px); box-shadow:0 8px 24px rgba(30,115,190,0.3); }
+  .footer-bottom { max-width:1200px; margin:0 auto; padding:24px 20px 40px; border-top:1px solid rgba(255,255,255,0.06); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+  .footer-bottom p { color:rgba(255,255,255,0.4); font-size:13px; }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width:1024px) {
+    .services-grid { grid-template-columns:repeat(2,1fr); }
     .site-footer .container { grid-template-columns:1fr 1fr; }
   }
-  @media (max-width:600px) {
+  @media (max-width:768px) {
+    .intro .container { grid-template-columns:1fr; }
+    .intro-image { order:-1; margin-bottom:30px; }
+    .hero h1 { font-size:38px; }
+    .services-grid { grid-template-columns:1fr; }
+    .featured-images { grid-template-columns:1fr; }
     .site-footer .container { grid-template-columns:1fr; }
+    .top-bar .container { justify-content:center; flex-wrap:wrap; }
   }
-  .footer-brand img { height:50px; margin-bottom:16px; filter:brightness(0) invert(1); }
-  .footer-socials {
-    list-style:none; display:flex; gap:12px; margin-top:12px;
-  }
-  .footer-socials a {
-    width:40px; height:40px; border-radius:50%;
-    background:rgba(255,255,255,0.12); display:flex;
-    align-items:center; justify-content:center; color:#fff; font-size:16px;
-    transition:var(--transition);
-  }
-  .footer-socials a:hover { background:rgba(255,255,255,0.25); }
-  .footer-col h4 {
-    color:rgb(46,163,242); font-size:13px; text-transform:uppercase;
-    letter-spacing:1px; margin-bottom:18px; font-weight:700;
-  }
-  .footer-col ul { list-style:none; }
-  .footer-col li { margin-bottom:10px; }
-  .footer-col a { color:rgba(255,255,255,0.75); font-size:14px; }
-  .footer-col a:hover { color:#fff; }
-  .footer-col p { color:rgba(255,255,255,0.75); font-size:14px; margin-bottom:8px; }
-  .footer-col p a { color:#fff; font-weight:600; }
-  .newsletter input {
-    width:100%; padding:12px 14px; border-radius:var(--radius);
-    border:1px solid rgba(255,255,255,0.2); background:rgba(255,255,255,0.08);
-    color:#fff; font-size:14px; margin-bottom:10px;
-    font-family:'Open Sans',sans-serif;
-  }
-  .newsletter input::placeholder { color:rgba(255,255,255,0.5); }
-  .newsletter .btn {
-    width:100%; background:rgb(46,163,242); color:#fff; font-size:12px;
-  }
-  .newsletter .btn:hover { background:rgb(30,115,190); }
-
-  .footer-bottom {
-    max-width:1200px; margin:40px auto 0; padding:24px 20px 0;
-    border-top:1px solid rgba(255,255,255,0.1);
-    display:flex; justify-content:space-between; align-items:center;
-    flex-wrap:wrap; gap:12px;
-  }
-  .footer-bottom p { color:rgba(255,255,255,0.5); font-size:13px; }
 </style>
 </head>
 <body>
@@ -274,26 +216,23 @@
 <!-- ========== TOP BAR ========== -->
 <div class="top-bar">
   <div class="container">
-    <a href="#">Book an Appointment</a>
-    <a href="#">Register</a>
+    <a href="#book">Book an Appointment <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
+    <a href="#register">Register</a>
     <ul class="socials">
-      <li><a href="#" aria-label="Instagram">&#61598;</a></li>
-      <li><a href="#" aria-label="Facebook">&#61594;</a></li>
+      <li><a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 01-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2m-.2 2A3.6 3.6 0 004 7.6v8.8A3.6 3.6 0 007.6 20h8.8a3.6 3.6 0 003.6-3.6V7.6A3.6 3.6 0 0016.4 4H7.6m9.65 1.5a1.25 1.25 0 01-1.25 1.25 1.25 1.25 0 01-1.25-1.25 1.25 1.25 0 011.25-1.25 1.25 1.25 0 011.25 1.25M12 7a5 5 0 015 5 5 5 0 01-5 5 5 5 0 01-5-5 5 5 0 015-5m0 2a3 3 0 00-3 3 3 3 0 003 3 3 3 0 003-3 3 3 0 00-3-3z"/></svg></a></li>
+      <li><a href="#" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a></li>
     </ul>
   </div>
 </div>
 
 <!-- ========== HEADER ========== -->
-<header class="site-header">
+<header class="site-header" id="header">
   <div class="container">
     <a href="#" class="logo">
-      <!-- Placeholder logo -->
-      <svg height="48" viewBox="0 0 160 48" xmlns="http://www.w3.org/2000/svg">
-        <rect x="0" y="4" width="42" height="40" rx="8" fill="#1e73be"/>
-        <path d="M12 28c4-8 10-12 18-12 4 0 6 2 6 5 0 4-4 7-8 7-3 0-5-2-5-5" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-        <text x="52" y="28" font-family="Montserrat,sans-serif" font-size="20" font-weight="600" fill="#283133">Jarden</text>
-        <text x="52" y="42" font-family="Montserrat,sans-serif" font-size="13" font-weight="700" fill="#2c848d">VETS</text>
-      </svg>
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><path d="M4 16c3-8 8-12 14-12 3 0 5 2 5 5 0 4-3 7-6 7-3 0-4-2-4-5"/></svg>
+      </div>
+      <span class="logo-text">Jarden <span>VETS</span></span>
     </a>
     <nav class="main-nav">
       <ul>
@@ -310,134 +249,212 @@
 </header>
 
 <!-- ========== HERO ========== -->
-<section class="hero">
+<section class="hero" id="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-overlay"></div>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
   <div class="container">
     <h1>Services</h1>
+    <p class="hero-lead">Complete veterinary care under one roof. From routine check-ups to emergency treatment, we're here when you need us.</p>
     <div class="hero-ctas">
-      <a href="#" class="btn btn-primary">Book Appointment</a>
-      <a href="#" class="btn btn-outline">Register</a>
+      <a href="#book" class="btn btn-primary">Book Appointment <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
+      <a href="#register" class="btn btn-outline">Register</a>
     </div>
+  </div>
+  <!-- Wavy bottom -->
+  <div class="hero-shape-bottom">
+    <svg viewBox="0 0 1440 120" preserveAspectRatio="none" fill="white">
+      <path d="M0,60 C360,120 720,0 1080,60 C1260,90 1380,80 1440,60 L1440,120 L0,120 Z"></path>
+    </svg>
   </div>
 </section>
 
-<!-- ========== INTRO ========== -->
-<section class="intro">
+<!-- Wavy transition to intro -->
+<div class="wavy-divider" style="margin-top:-1px;">
+  
+</div>
+
+<!-- ========== INTRO SECTION ========== -->
+<section class="intro" id="intro">
   <div class="container">
-    <div class="intro-text">
+    <div class="intro-text reveal">
       <h2>Complete Veterinary Services in Olney – All Under One Roof</h2>
       <p>At Jarden Vets, we believe every animal companion deserves thoughtful, professional care. That's why we've designed our independent practice to provide a full range of veterinary services in Olney, all under one roof, whether it's a routine check-up or something more complex.</p>
-      <p>Our veterinary services in Olney cover everything from wellness checks and vaccinations to diagnostics, dentistry and surgery, supporting your companion's health at every life stage. <strong>This continuity of care extends to our <a href="#">24/7 emergency service</a>.</strong></p>
+      <p>Our veterinary services in Olney cover everything from wellness checks and vaccinations to diagnostics, dentistry and surgery, supporting your companion's health at every life stage. <strong>This continuity of care extends to our <a href="#emergency">24/7 emergency service</a>.</strong></p>
     </div>
-    <div class="intro-image">
-      <img src="https://images.unsplash.com/photo-1576201836106-db1758fd1c97?w=600&auto=format&fit=crop&q=80" alt="Veterinary examination">
+    <div class="intro-image reveal stagger-1">
+      <div class="intro-image-accent"></div>
+      <div class="intro-image-inner">
+        <img src="https://images.unsplash.com/photo-1576201836106-db1758fd1c97?w=700&auto=format&fit=crop&q=80" alt="Veterinary examination" loading="lazy">
+      </div>
     </div>
   </div>
 </section>
 
+<!-- Wavy divider to services -->
+<div class="wavy-divider">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" fill="#f8f9fa">
+    <path d="M0,30 C180,0 360,60 540,30 C720,0 900,60 1080,30 C1260,0 1380,20 1440,30 L1440,60 L0,60 Z"></path>
+  </svg>
+</div>
+
 <!-- ========== SERVICES GRID ========== -->
-<section class="services-section">
+<section class="services-section" id="services">
   <div class="container">
-    <div class="section-header">
+    <div class="section-header reveal">
       <h2>Our Services – What We Offer</h2>
       <h3>Everything Your Animal Companion Needs Under One Roof</h3>
       <p>Our fully equipped, modern practice provides a complete range of veterinary care for animal companions in Olney, Milton Keynes and the surrounding areas. Here's what we offer:</p>
     </div>
 
     <div class="services-grid">
-      <div class="service-card">
-        <div class="service-icon">&#9733;</div>
+      <div class="service-card reveal stagger-1">
+        <div class="service-icon-wrap">
+          <div class="service-icon-blob"></div>
+          <div class="service-icon">&#9733;</div>
+        </div>
         <h4>24/7 Emergency Care</h4>
         <p>Available day and night for registered animal companions, with a team ready to guide you and prepare for your arrival when it matters most.</p>
-        <a href="#">Emergencies</a>
+        <a href="#emergency">Emergencies</a>
       </div>
 
-      <div class="service-card">
-        <div class="service-icon">&#9829;</div>
+      <div class="service-card reveal stagger-2">
+        <div class="service-icon-wrap">
+          <div class="service-icon-blob"></div>
+          <div class="service-icon">&#9829;</div>
+        </div>
         <h4>Routine Health Checks</h4>
-        <p>Stay on top of your companion's health with regular check-ups, advice, and monitoring.</p>
+        <p>Stay on top of your companion's health with regular check-ups, advice, and monitoring from our experienced team.</p>
         <a href="#">Learn More</a>
       </div>
 
-      <div class="service-card">
-        <div class="service-icon">&#10003;</div>
+      <div class="service-card reveal stagger-3">
+        <div class="service-icon-wrap">
+          <div class="service-icon-blob"></div>
+          <div class="service-icon">&#10003;</div>
+        </div>
         <h4>Vaccinations & Preventative Care</h4>
-        <p>Protection against common diseases and wellbeing plans to keep your companion thriving.</p>
+        <p>Protection against common diseases and wellbeing plans to keep your companion thriving all year round.</p>
         <a href="#">Learn More</a>
       </div>
 
-      <div class="service-card">
-        <div class="service-icon">&#9888;</div>
+      <div class="service-card reveal stagger-1">
+        <div class="service-icon-wrap">
+          <div class="service-icon-blob"></div>
+          <div class="service-icon">&#9888;</div>
+        </div>
         <h4>Diagnostic Services</h4>
-        <p>In-house blood tests, lab work and imaging to give fast, accurate answers.</p>
+        <p>In-house blood tests, lab work and imaging to give fast, accurate answers when your companion needs them.</p>
         <a href="#">Learn More</a>
       </div>
 
-      <div class="service-card">
-        <div class="service-icon">&#9874;</div>
+      <div class="service-card reveal stagger-2">
+        <div class="service-icon-wrap">
+          <div class="service-icon-blob"></div>
+          <div class="service-icon">&#9874;</div>
+        </div>
         <h4>Neutering & Surgical Procedures</h4>
-        <p>Safe, professional operations performed right here at our Olney clinic.</p>
+        <p>Safe, professional operations performed right here at our Olney clinic by our skilled surgical team.</p>
         <a href="#">Learn More</a>
       </div>
 
-      <div class="service-card">
-        <div class="service-icon">&#9787;</div>
+      <div class="service-card reveal stagger-3">
+        <div class="service-icon-wrap">
+          <div class="service-icon-blob"></div>
+          <div class="service-icon">&#9787;</div>
+        </div>
         <h4>Dental Care</h4>
-        <p>From scale and polish to extractions, we'll keep those gums and teeth healthy.</p>
+        <p>From scale and polish to extractions, we'll keep those gums and teeth healthy throughout their life.</p>
         <a href="#">Learn More</a>
       </div>
 
-      <div class="service-card">
-        <div class="service-icon">&#9737;</div>
+      <div class="service-card reveal stagger-1">
+        <div class="service-icon-wrap">
+          <div class="service-icon-blob"></div>
+          <div class="service-icon">&#9737;</div>
+        </div>
         <h4>Skin, Ears & Allergies</h4>
-        <p>Support for those niggling issues that affect comfort and quality of life.</p>
+        <p>Support for those niggling issues that affect comfort and quality of life for your beloved companion.</p>
         <a href="#">Learn More</a>
       </div>
 
-      <div class="service-card">
-        <div class="service-icon">&#9878;</div>
+      <div class="service-card reveal stagger-2">
+        <div class="service-icon-wrap">
+          <div class="service-icon-blob"></div>
+          <div class="service-icon">&#9878;</div>
+        </div>
         <h4>Prescriptions & Pharmacy</h4>
-        <p>Quick and easy access to medication, parasite protection and repeat prescriptions.</p>
+        <p>Quick and easy access to medication, parasite protection and repeat prescriptions from our in-house pharmacy.</p>
         <a href="#">Learn More</a>
       </div>
 
-      <div class="service-card">
-        <div class="service-icon">&#9734;</div>
+      <div class="service-card reveal stagger-3">
+        <div class="service-icon-wrap">
+          <div class="service-icon-blob"></div>
+          <div class="service-icon">&#9734;</div>
+        </div>
         <h4>Price Matching on Medications</h4>
         <p>We aim to match online pharmacy prices on prescription medications, flea and worm treatments.</p>
         <a href="#">Learn More</a>
       </div>
 
-      <div class="service-card">
-        <div class="service-icon">&#9825;</div>
+      <div class="service-card reveal stagger-1">
+        <div class="service-icon-wrap">
+          <div class="service-icon-blob"></div>
+          <div class="service-icon">&#9825;</div>
+        </div>
         <h4>End-of-Life Care</h4>
-        <p>Handled with dignity, gentleness and empathy when it's needed most.</p>
+        <p>Handled with dignity, gentleness and empathy when it's needed most. Support for you and your companion.</p>
         <a href="#">Learn More</a>
       </div>
     </div>
 
-    <div class="featured-images">
-      <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=600&auto=format&fit=crop&q=80" alt="Jarden Vets Premises">
-      <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=600&auto=format&fit=crop&q=80" alt="Reception Area">
+    <div class="featured-images reveal">
+      <div class="featured-img-wrap">
+        <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=700&auto=format&fit=crop&q=80" alt="Jarden Vets Premises" loading="lazy">
+        <div class="featured-caption">Modern Clinic Facilities</div>
+      </div>
+      <div class="featured-img-wrap">
+        <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=700&auto=format&fit=crop&q=80" alt="Reception Area" loading="lazy">
+        <div class="featured-caption">Welcoming Reception</div>
+      </div>
     </div>
   </div>
 </section>
 
+<!-- Wavy divider to CTA -->
+<div class="wavy-divider" style="margin-bottom:-1px;">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" fill="#283133">
+    <path d="M0,30 C240,60 480,0 720,30 C960,60 1200,0 1440,30 L1440,60 L0,60 Z"></path>
+  </svg>
+</div>
+
 <!-- ========== CTA STRIP ========== -->
-<section class="cta-strip">
+<section class="cta-strip" id="cta">
   <div class="container">
-    <a href="#" class="btn btn-outline">Register Your Companion</a>
-    <a href="#" class="btn btn-primary">See pricing</a>
+    <h2>Ready to give your companion the care they deserve?</h2>
+    <a href="#register" class="btn btn-outline">Register Your Companion</a>
+    <a href="#pricing" class="btn btn-primary">See Pricing <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
   </div>
 </section>
 
+<!-- Wavy divider to footer -->
+<div class="wave-top">
+  <svg viewBox="0 0 1440 70" preserveAspectRatio="none" fill="#283133">
+    <path d="M0,35 C360,70 720,0 1080,35 C1260,55 1380,50 1440,35 L1440,70 L0,70 Z"></path>
+  </svg>
+</div>
+
 <!-- ========== FOOTER ========== -->
-<footer class="site-footer">
+<footer class="site-footer" id="footer">
   <div class="container">
     <div class="footer-brand">
-      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='48'%3E%3Ctext x='0' y='30' font-family='Montserrat,sans-serif' font-size='22' font-weight='600' fill='%23fff'%3EJarden%3C/text%3E%3Ctext x='0' y='44' font-family='Montserrat,sans-serif' font-size='13' font-weight='700' fill='%232c848d'%3EVETS%3C/text%3E%3C/svg%3E" alt="Jarden Vets">
+      <div class="logo-text" style="font-size:22px;">Jarden <span>VETS</span></div>
+      <p style="color:rgba(255,255,255,0.5); font-size:14px;">Independent, compassionate care for your animal companions in Olney.</p>
       <ul class="footer-socials">
         <li><a href="#" aria-label="Facebook">f</a></li>
-        <li><a href="#" aria-label="Instagram">&#9733;</a></li>
+        <li><a href="#" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 01-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2m-.2 2A3.6 3.6 0 004 7.6v8.8A3.6 3.6 0 007.6 20h8.8a3.6 3.6 0 003.6-3.6V7.6A3.6 3.6 0 0016.4 4H7.6m9.65 1.5a1.25 1.25 0 01-1.25 1.25 1.25 1.25 0 01-1.25-1.25 1.25 1.25 0 011.25-1.25 1.25 1.25 0 011.25 1.25M12 7a5 5 0 015 5 5 5 0 01-5 5 5 5 0 01-5-5 5 5 0 015-5m0 2a3 3 0 00-3 3 3 3 0 003 3 3 3 0 003-3 3 3 0 00-3-3z"/></svg></a></li>
       </ul>
     </div>
 
@@ -445,7 +462,7 @@
       <h4>Sign Up</h4>
       <input type="text" placeholder="Your Name">
       <input type="email" placeholder="Your Email">
-      <button class="btn btn-primary">Subscribe</button>
+      <button class="btn">Subscribe</button>
     </div>
 
     <div class="footer-col">
@@ -469,9 +486,33 @@
 
   <div class="footer-bottom">
     <p>&copy; 2025 Jarden Vets. All rights reserved.</p>
-    <p><a href="#" style="color:rgba(255,255,255,0.5)">Website by Everything Sorted</a></p>
+    <p><a href="#" style="color:rgba(255,255,255,0.35);">Website by Everything Sorted</a></p>
   </div>
 </footer>
+
+<script>
+  // Scroll reveal observer
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Header shrink on scroll
+  window.addEventListener('scroll', () => {
+    document.getElementById('header').classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Parallax hero background
+  window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    const hero = document.getElementById('heroBg');
+    if (hero && scrolled < 700) {
+      hero.style.transform = `translateY(${scrolled * 0.35}px) scale(${1 + scrolled * 0.0003})`;
+    }
+  });
+</script>
 
 </body>
 </html>
