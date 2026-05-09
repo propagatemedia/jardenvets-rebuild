@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Veterinary Services in Olney | Complete Care at Jarden Vets</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --brand-blue: rgb(30,115,190);
+    --brand-teal: rgb(44,132,155);
+    --brand-dark: rgb(40,49,51);
+    --brand-navy: rgb(40,49,51);
+    --text-dark: rgb(34,34,34);
+    --text-body: rgb(51,51,51);
+    --text-muted: rgb(102,102,102);
+    --bg-white: #fff;
+    --bg-light: rgb(249,249,249);
+    --border-light: #eee;
+    --radius: 4px;
+    --transition: 0.25s ease;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Open Sans',sans-serif; color:var(--text-body); line-height:1.6; background:var(--bg-white); }
+  h1,h2,h3,h4 { font-family:'Montserrat',sans-serif; font-weight:600; color:var(--brand-dark); }
+  a { color:var(--brand-blue); text-decoration:none; transition:var(--transition); }
+  a:hover { opacity:0.85; }
+  img { max-width:100%; display:block; }
+
+  /* ========== TOP BAR ========== */
+  .top-bar {
+    background:var(--brand-dark);
+    padding:8px 0;
+  }
+  .top-bar .container {
+    max-width:1200px; margin:0 auto; padding:0 20px;
+    display:flex; justify-content:flex-end; align-items:center; gap:24px;
+  }
+  .top-bar a {
+    color:#fff; font-family:'Montserrat',sans-serif; font-size:12px;
+    font-weight:600; letter-spacing:0.5px; text-transform:uppercase;
+  }
+  .top-bar a::after {
+    content:'>'; display:inline-block; margin-left:6px; font-size:10px;
+  }
+  .top-bar .socials {
+    list-style:none; display:flex; gap:12px; margin-left:16px;
+  }
+  .top-bar .socials a {
+    width:28px; height:28px; border-radius:50%;
+    background:rgba(255,255,255,0.15); display:flex;
+    align-items:center; justify-content:center; font-size:13px;
+  }
+  .top-bar .socials a::after { content:none; }
+
+  /* ========== HEADER ========== */
+  .site-header {
+    background:var(--bg-white);
+    border-bottom:1px solid var(--border-light);
+    padding:18px 0;
+    position:sticky; top:0; z-index:100;
+  }
+  .site-header .container {
+    max-width:1200px; margin:0 auto; padding:0 20px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .logo img { height:48px; }
+  .main-nav ul {
+    list-style:none; display:flex; gap:28px;
+  }
+  .main-nav a {
+    font-family:'Montserrat',sans-serif; font-size:13px;
+    font-weight:600; text-transform:uppercase; letter-spacing:0.6px;
+    color:var(--brand-dark);
+  }
+  .main-nav a:hover { color:var(--brand-blue); }
+
+  /* ========== HERO ========== */
+  .hero {
+    position:relative; min-height:420px;
+    display:flex; align-items:center;
+    background:url('https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=1600&auto=format&fit=crop&q=80') center/cover no-repeat;
+  }
+  .hero::before {
+    content:''; position:absolute; inset:0;
+    background:rgba(0,0,0,0.35);
+  }
+  .hero .container {
+    position:relative; z-index:2;
+    max-width:1200px; margin:0 auto; padding:60px 20px;
+  }
+  .hero h1 {
+    color:#fff; font-size:48px; font-weight:700; line-height:1.15;
+    margin-bottom:24px; max-width:600px;
+  }
+  .hero-ctas { display:flex; gap:16px; flex-wrap:wrap; }
+  .btn {
+    display:inline-flex; align-items:center; justify-content:center;
+    padding:14px 28px; border-radius:var(--radius);
+    font-family:'Montserrat',sans-serif; font-size:13px;
+    font-weight:700; text-transform:uppercase; letter-spacing:0.6px;
+    cursor:pointer; border:none; transition:var(--transition);
+  }
+  .btn-primary {
+    background:var(--brand-blue); color:#fff;
+  }
+  .btn-primary:hover {
+    background:rgb(44,132,155); opacity:1;
+  }
+  .btn-outline {
+    background:transparent; color:#fff; border:2px solid #fff;
+  }
+  .btn-outline:hover { background:#fff; color:var(--brand-dark); }
+
+  /* ========== INTRO SECTION ========== */
+  .intro {
+    background:var(--bg-white); padding:80px 0;
+  }
+  .intro .container {
+    max-width:1200px; margin:0 auto; padding:0 20px;
+    display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center;
+  }
+  .intro h2 { font-size:30px; line-height:1.3; margin-bottom:20px; }
+  .intro p { font-size:16px; color:var(--text-body); margin-bottom:16px; }
+  .intro strong { color:var(--brand-dark); font-weight:700; }
+  .intro a { color:var(--brand-blue); font-weight:600; }
+  .intro-image img {
+    border-radius:var(--radius);
+    box-shadow:0 12px 40px rgba(0,0,0,0.08);
+  }
+
+  /* ========== SERVICES GRID ========== */
+  .services-section {
+    background:var(--bg-light); padding:80px 0;
+  }
+  .services-section .container {
+    max-width:1200px; margin:0 auto; padding:0 20px;
+  }
+  .section-header { text-align:center; margin-bottom:50px; }
+  .section-header h2 {
+    font-size:14px; text-transform:uppercase; letter-spacing:1.2px;
+    color:var(--text-muted); font-weight:600; margin-bottom:12px;
+  }
+  .section-header h3 {
+    font-size:28px; color:var(--brand-dark); max-width:600px; margin:0 auto;
+  }
+  .section-header p {
+    font-size:16px; color:var(--text-muted); max-width:700px; margin:18px auto 0;
+  }
+
+  .services-grid {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:24px;
+    margin-bottom:50px;
+  }
+  @media (max-width:900px) {
+    .services-grid { grid-template-columns:repeat(2,1fr); }
+    .intro .container { grid-template-columns:1fr; }
+  }
+  @media (max-width:600px) {
+    .services-grid { grid-template-columns:1fr; }
+    .hero h1 { font-size:32px; }
+  }
+
+  .service-card {
+    background:var(--bg-white); border-radius:var(--radius);
+    border:1px solid var(--border-light); padding:32px;
+    transition:var(--transition); position:relative;
+    display:flex; flex-direction:column; gap:16px;
+  }
+  .service-card:hover {
+    transform:translateY(-4px);
+    box-shadow:0 16px 48px rgba(0,0,0,0.08);
+  }
+  .service-icon {
+    width:56px; height:56px; border-radius:50%;
+    background:var(--brand-blue); display:flex;
+    align-items:center; justify-content:center;
+    color:#fff; font-size:22px; flex-shrink:0;
+  }
+  .service-card h4 {
+    font-size:17px; color:var(--brand-dark); font-weight:700;
+  }
+  .service-card p {
+    font-size:14px; color:var(--text-muted); line-height:1.6; flex:1;
+  }
+  .service-card a {
+    font-family:'Montserrat',sans-serif; font-size:12px;
+    font-weight:700; text-transform:uppercase; letter-spacing:0.6px;
+    color:var(--brand-blue); margin-top:auto;
+  }
+  .service-card a::after {
+    content:'>'; display:inline-block; margin-left:6px; transition:var(--transition);
+  }
+  .service-card a:hover::after { transform:translateX(3px); }
+
+  /* ========== FEATURED IMAGES ========== */
+  .featured-images {
+    display:grid; grid-template-columns:1fr 1fr; gap:24px;
+  }
+  .featured-images img { border-radius:var(--radius); }
+
+  /* ========== CTA STRIP ========== */
+  .cta-strip {
+    background:var(--brand-dark); padding:60px 0;
+  }
+  .cta-strip .container {
+    max-width:1200px; margin:0 auto; padding:0 20px;
+    display:flex; justify-content:center; gap:16px;
+    flex-wrap:wrap;
+  }
+
+  /* ========== FOOTER ========== */
+  .site-footer {
+    background:var(--brand-dark); color:#fff; padding:60px 0 30px;
+  }
+  .site-footer .container {
+    max-width:1200px; margin:0 auto; padding:0 20px;
+    display:grid; grid-template-columns:1.2fr 1fr 1fr 1fr; gap:40px;
+  }
+  @media (max-width:900px) {
+    .site-footer .container { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:600px) {
+    .site-footer .container { grid-template-columns:1fr; }
+  }
+  .footer-brand img { height:50px; margin-bottom:16px; filter:brightness(0) invert(1); }
+  .footer-socials {
+    list-style:none; display:flex; gap:12px; margin-top:12px;
+  }
+  .footer-socials a {
+    width:40px; height:40px; border-radius:50%;
+    background:rgba(255,255,255,0.12); display:flex;
+    align-items:center; justify-content:center; color:#fff; font-size:16px;
+    transition:var(--transition);
+  }
+  .footer-socials a:hover { background:rgba(255,255,255,0.25); }
+  .footer-col h4 {
+    color:rgb(46,163,242); font-size:13px; text-transform:uppercase;
+    letter-spacing:1px; margin-bottom:18px; font-weight:700;
+  }
+  .footer-col ul { list-style:none; }
+  .footer-col li { margin-bottom:10px; }
+  .footer-col a { color:rgba(255,255,255,0.75); font-size:14px; }
+  .footer-col a:hover { color:#fff; }
+  .footer-col p { color:rgba(255,255,255,0.75); font-size:14px; margin-bottom:8px; }
+  .footer-col p a { color:#fff; font-weight:600; }
+  .newsletter input {
+    width:100%; padding:12px 14px; border-radius:var(--radius);
+    border:1px solid rgba(255,255,255,0.2); background:rgba(255,255,255,0.08);
+    color:#fff; font-size:14px; margin-bottom:10px;
+    font-family:'Open Sans',sans-serif;
+  }
+  .newsletter input::placeholder { color:rgba(255,255,255,0.5); }
+  .newsletter .btn {
+    width:100%; background:rgb(46,163,242); color:#fff; font-size:12px;
+  }
+  .newsletter .btn:hover { background:rgb(30,115,190); }
+
+  .footer-bottom {
+    max-width:1200px; margin:40px auto 0; padding:24px 20px 0;
+    border-top:1px solid rgba(255,255,255,0.1);
+    display:flex; justify-content:space-between; align-items:center;
+    flex-wrap:wrap; gap:12px;
+  }
+  .footer-bottom p { color:rgba(255,255,255,0.5); font-size:13px; }
+</style>
+</head>
+<body>
+
+<!-- ========== TOP BAR ========== -->
+<div class="top-bar">
+  <div class="container">
+    <a href="#">Book an Appointment</a>
+    <a href="#">Register</a>
+    <ul class="socials">
+      <li><a href="#" aria-label="Instagram">&#61598;</a></li>
+      <li><a href="#" aria-label="Facebook">&#61594;</a></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ========== HEADER ========== -->
+<header class="site-header">
+  <div class="container">
+    <a href="#" class="logo">
+      <!-- Placeholder logo -->
+      <svg height="48" viewBox="0 0 160 48" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="4" width="42" height="40" rx="8" fill="#1e73be"/>
+        <path d="M12 28c4-8 10-12 18-12 4 0 6 2 6 5 0 4-4 7-8 7-3 0-5-2-5-5" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <text x="52" y="28" font-family="Montserrat,sans-serif" font-size="20" font-weight="600" fill="#283133">Jarden</text>
+        <text x="52" y="42" font-family="Montserrat,sans-serif" font-size="13" font-weight="700" fill="#2c848d">VETS</text>
+      </svg>
+    </a>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Pricing</a></li>
+        <li><a href="#">Emergencies</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- ========== HERO ========== -->
+<section class="hero">
+  <div class="container">
+    <h1>Services</h1>
+    <div class="hero-ctas">
+      <a href="#" class="btn btn-primary">Book Appointment</a>
+      <a href="#" class="btn btn-outline">Register</a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== INTRO ========== -->
+<section class="intro">
+  <div class="container">
+    <div class="intro-text">
+      <h2>Complete Veterinary Services in Olney – All Under One Roof</h2>
+      <p>At Jarden Vets, we believe every animal companion deserves thoughtful, professional care. That's why we've designed our independent practice to provide a full range of veterinary services in Olney, all under one roof, whether it's a routine check-up or something more complex.</p>
+      <p>Our veterinary services in Olney cover everything from wellness checks and vaccinations to diagnostics, dentistry and surgery, supporting your companion's health at every life stage. <strong>This continuity of care extends to our <a href="#">24/7 emergency service</a>.</strong></p>
+    </div>
+    <div class="intro-image">
+      <img src="https://images.unsplash.com/photo-1576201836106-db1758fd1c97?w=600&auto=format&fit=crop&q=80" alt="Veterinary examination">
+    </div>
+  </div>
+</section>
+
+<!-- ========== SERVICES GRID ========== -->
+<section class="services-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Our Services – What We Offer</h2>
+      <h3>Everything Your Animal Companion Needs Under One Roof</h3>
+      <p>Our fully equipped, modern practice provides a complete range of veterinary care for animal companions in Olney, Milton Keynes and the surrounding areas. Here's what we offer:</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">&#9733;</div>
+        <h4>24/7 Emergency Care</h4>
+        <p>Available day and night for registered animal companions, with a team ready to guide you and prepare for your arrival when it matters most.</p>
+        <a href="#">Emergencies</a>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">&#9829;</div>
+        <h4>Routine Health Checks</h4>
+        <p>Stay on top of your companion's health with regular check-ups, advice, and monitoring.</p>
+        <a href="#">Learn More</a>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">&#10003;</div>
+        <h4>Vaccinations & Preventative Care</h4>
+        <p>Protection against common diseases and wellbeing plans to keep your companion thriving.</p>
+        <a href="#">Learn More</a>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">&#9888;</div>
+        <h4>Diagnostic Services</h4>
+        <p>In-house blood tests, lab work and imaging to give fast, accurate answers.</p>
+        <a href="#">Learn More</a>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">&#9874;</div>
+        <h4>Neutering & Surgical Procedures</h4>
+        <p>Safe, professional operations performed right here at our Olney clinic.</p>
+        <a href="#">Learn More</a>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">&#9787;</div>
+        <h4>Dental Care</h4>
+        <p>From scale and polish to extractions, we'll keep those gums and teeth healthy.</p>
+        <a href="#">Learn More</a>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">&#9737;</div>
+        <h4>Skin, Ears & Allergies</h4>
+        <p>Support for those niggling issues that affect comfort and quality of life.</p>
+        <a href="#">Learn More</a>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">&#9878;</div>
+        <h4>Prescriptions & Pharmacy</h4>
+        <p>Quick and easy access to medication, parasite protection and repeat prescriptions.</p>
+        <a href="#">Learn More</a>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">&#9734;</div>
+        <h4>Price Matching on Medications</h4>
+        <p>We aim to match online pharmacy prices on prescription medications, flea and worm treatments.</p>
+        <a href="#">Learn More</a>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">&#9825;</div>
+        <h4>End-of-Life Care</h4>
+        <p>Handled with dignity, gentleness and empathy when it's needed most.</p>
+        <a href="#">Learn More</a>
+      </div>
+    </div>
+
+    <div class="featured-images">
+      <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=600&auto=format&fit=crop&q=80" alt="Jarden Vets Premises">
+      <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=600&auto=format&fit=crop&q=80" alt="Reception Area">
+    </div>
+  </div>
+</section>
+
+<!-- ========== CTA STRIP ========== -->
+<section class="cta-strip">
+  <div class="container">
+    <a href="#" class="btn btn-outline">Register Your Companion</a>
+    <a href="#" class="btn btn-primary">See pricing</a>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-brand">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='48'%3E%3Ctext x='0' y='30' font-family='Montserrat,sans-serif' font-size='22' font-weight='600' fill='%23fff'%3EJarden%3C/text%3E%3Ctext x='0' y='44' font-family='Montserrat,sans-serif' font-size='13' font-weight='700' fill='%232c848d'%3EVETS%3C/text%3E%3C/svg%3E" alt="Jarden Vets">
+      <ul class="footer-socials">
+        <li><a href="#" aria-label="Facebook">f</a></li>
+        <li><a href="#" aria-label="Instagram">&#9733;</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col newsletter">
+      <h4>Sign Up</h4>
+      <input type="text" placeholder="Your Name">
+      <input type="email" placeholder="Your Email">
+      <button class="btn btn-primary">Subscribe</button>
+    </div>
+
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Wellbeing Plan T&Cs</a></li>
+        <li><a href="#">Website T&Cs</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p>Tel: <a href="tel:01234746325">01234 746325</a></p>
+      <p>Email: <a href="mailto:hello@jardenvets.co.uk">hello@jardenvets.co.uk</a></p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2025 Jarden Vets. All rights reserved.</p>
+    <p><a href="#" style="color:rgba(255,255,255,0.5)">Website by Everything Sorted</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
